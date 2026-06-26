@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Productos Funcional</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/app.js" type="module"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-controls">
+            <h1>Catálogo de Productos</h1>
+            <div class="search-container">
+                <button id="mic-btn" type="button" class="mic-button" title="Buscar por voz">🎤</button>
+                <span id="search-status" class="search-status"></span>
+            </div>
+        </div>
+    </header>
+
+    <nav id="category-filters" class="category-filters"></nav>
+
+    <main class="main-content">
+        <div id="status-message" class="status-message">Cargando productos...</div>
+        <div id="product-gallery" class="gallery-grid" style="display: none;">
+            <!-- Las tarjetas de producto se inyectarán aquí dinámicamente -->
+        </div>
+    </main>
+
+    <!-- Contenedor del Modal -->
+    <div id="product-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="close-modal" class="close-button">&times;</button>
+            <div id="modal-body">
+                <!-- El contenido del modal se inyectará aquí -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

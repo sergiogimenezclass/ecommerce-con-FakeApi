@@ -1,0 +1,13 @@
+{
+  "name": "ecommerce-fakeapi",
+  "version": "1.0.0",
+  "description": "Educativo e-commerce catalog using FakeStoreAPI and native ES Modules with Vitest.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.9"
+  }
+}
