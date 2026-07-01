@@ -14,6 +14,9 @@
             <div class="search-container">
                 <button id="mic-btn" type="button" class="mic-button" title="Buscar por voz">🎤</button>
                 <span id="search-status" class="search-status"></span>
+                <button id="cart-toggle-btn" class="cart-toggle-btn" title="Ver carrito">
+                    🛒 <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
+                </button>
             </div>
         </div>
     </header>
@@ -36,5 +39,23 @@
             </div>
         </div>
     </div>
+    <!-- Contenedor del Carrito -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button id="close-cart-btn" class="close-cart-btn">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items-container">
+            <!-- Los ítems del carrito se inyectarán aquí -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-section">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button id="checkout-btn" class="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay"></div>
 </body>
 </html>
