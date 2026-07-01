@@ -1,4 +1,4 @@
-export function renderGallery(products, galleryContainer, statusMessage, onCardClick) {
+export function renderGallery(products, galleryContainer, statusMessage, onCardClick, onAddToCart) {
     if (!products || products.length === 0) {
         statusMessage.textContent = 'No se encontraron productos disponibles.';
         galleryContainer.innerHTML = '';
@@ -22,11 +22,18 @@ export function renderGallery(products, galleryContainer, statusMessage, onCardC
                 <span class="product-category">${product.category}</span>
                 <h2 class="product-title">${product.title}</h2>
                 <span class="product-price">$${product.price.toFixed(2)}</span>
+                <button class="add-to-cart-btn">🛒 Agregar</button>
             </div>
         `;
 
-        // Asignar evento para abrir el modal
+        // Asignar evento para abrir el modal al hacer clic en la tarjeta
         card.addEventListener('click', () => onCardClick(product.id));
+
+        // Asignar evento al botón de agregar, deteniendo la propagación para no abrir el modal
+        card.querySelector('.add-to-cart-btn').addEventListener('click', (event) => {
+            event.stopPropagation();
+            onAddToCart(product);
+        });
 
         galleryContainer.appendChild(card);
     });

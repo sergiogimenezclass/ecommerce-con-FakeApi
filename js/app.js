@@ -2,6 +2,7 @@ import { fetchProducts, fetchCategories } from './api.js';
 import { renderGallery, renderCategories } from './gallery.js';
 import { initModal, openModal } from './modal.js';
 import { initVoiceSearch } from './voiceSearch.js';
+import { initCart, addToCart } from './cart.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let allProducts = [];
@@ -17,8 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modal-body');
     const closeModalBtn = document.getElementById('close-modal');
 
+    // Elementos del carrito
+    const cartToggleBtn = document.getElementById('cart-toggle-btn');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    const cartBadge = document.getElementById('cart-badge');
+
     // Inicializaciones
     initModal(modalOverlay, modalBody, closeModalBtn);
+    initCart({
+        cartToggleBtn,
+        cartSidebar,
+        cartOverlay,
+        closeCartBtn,
+        checkoutBtn,
+        cartItemsContainer,
+        cartTotalPrice,
+        cartBadge
+    });
 
     async function loadApp() {
         try {
@@ -30,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 allProducts, 
                 galleryContainer, 
                 statusMessage, 
-                (productId) => openModal(productId, modalOverlay, modalBody)
+                (productId) => openModal(productId, modalOverlay, modalBody, addToCart),
+                addToCart
             );
 
             // Cargar y renderizar categorías
@@ -43,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     filteredProducts, 
                     galleryContainer, 
                     statusMessage, 
-                    (productId) => openModal(productId, modalOverlay, modalBody)
+                    (productId) => openModal(productId, modalOverlay, modalBody, addToCart),
+                    addToCart
                 )
             );
 
@@ -56,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     filteredProducts, 
                     galleryContainer, 
                     statusMessage, 
-                    (productId) => openModal(productId, modalOverlay, modalBody)
+                    (productId) => openModal(productId, modalOverlay, modalBody, addToCart),
+                    addToCart
                 )
             );
 

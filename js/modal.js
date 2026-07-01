@@ -21,7 +21,7 @@ export function initModal(modalOverlay, modalBody, closeModalBtn) {
     });
 }
 
-export async function openModal(productId, modalOverlay, modalBody) {
+export async function openModal(productId, modalOverlay, modalBody, onAddToCart) {
     modalOverlay.style.display = 'flex';
     modalBody.innerHTML = '<div class="status-message">Cargando detalles del producto...</div>';
 
@@ -38,8 +38,16 @@ export async function openModal(productId, modalOverlay, modalBody) {
                 <span class="product-price">$${product.price.toFixed(2)}</span>
                 <p class="modal-description">${product.description}</p>
                 <div class="modal-rating">⭐ ${product.rating.rate} (${product.rating.count} reseñas)</div>
+                <button class="modal-add-to-cart-btn">🛒 Agregar al Carrito</button>
             </div>
         `;
+
+        // Asignar el evento para agregar al carrito
+        modalBody.querySelector('.modal-add-to-cart-btn').addEventListener('click', () => {
+            onAddToCart(product);
+            closeModal(modalOverlay, modalBody);
+        });
+
     } catch (error) {
         console.error('Error al cargar detalle:', error);
         modalBody.innerHTML = '<div class="status-message">Error al cargar los detalles. Intente nuevamente.</div>';
