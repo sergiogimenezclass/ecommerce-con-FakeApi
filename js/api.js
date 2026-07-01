@@ -38,3 +38,16 @@ export async function fetchProductDetail(productId) {
         throw error;
     }
 }
+
+export async function fetchUserProfile(userId) {
+    try {
+        const response = await fetch(`${BASE_URL}/users/${userId}`);
+        if (!response.ok) {
+            throw new Error(`Error HTTP Perfil: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Fallo en la obtención del perfil de usuario:', error);
+        throw error;
+    }
+}
