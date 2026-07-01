@@ -20,6 +20,24 @@
                 <button id="cart-toggle-btn" class="cart-toggle-btn" title="Ver carrito">
                     🛒 <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
                 </button>
+                
+                <!-- Perfil de Usuario Desplegable -->
+                <div id="user-profile" class="user-profile-container">
+                    <button id="profile-btn" class="profile-btn" title="Mi Perfil">
+                        <span class="profile-icon">👤</span>
+                        <span id="profile-name" class="profile-name">Cargando...</span>
+                    </button>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <div class="profile-dropdown-header">
+                            <h3 id="dropdown-fullname">Cargando...</h3>
+                            <p id="dropdown-email">-</p>
+                        </div>
+                        <div class="profile-dropdown-body">
+                            <p><strong>📞 Teléfono:</strong> <span id="dropdown-phone">-</span></p>
+                            <p><strong>📍 Dirección:</strong> <span id="dropdown-address">-</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
