@@ -4,10 +4,14 @@
   "description": "Educativo e-commerce catalog using FakeStoreAPI and native ES Modules with Vitest.",
   "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "devDependencies": {
+    "vite": "^8.1.2",
     "vitest": "^4.1.9"
   }
 }
