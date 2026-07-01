@@ -1,8 +1,9 @@
-import { fetchProducts, fetchCategories } from './api.js';
+import { fetchProducts, fetchCategories, fetchUserProfile } from './api.js';
 import { renderGallery, renderCategories } from './gallery.js';
 import { initModal, openModal } from './modal.js';
 import { initVoiceSearch } from './voiceSearch.js';
 import { initCart, addToCart } from './cart.js';
+import { initProfile, renderProfile } from './profile.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let allProducts = [];
@@ -28,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalPrice = document.getElementById('cart-total-price');
     const cartBadge = document.getElementById('cart-badge');
 
+    // Elementos del perfil de usuario
+    const profileBtn = document.getElementById('profile-btn');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    const profileName = document.getElementById('profile-name');
+    const dropdownFullname = document.getElementById('dropdown-fullname');
+    const dropdownEmail = document.getElementById('dropdown-email');
+    const dropdownPhone = document.getElementById('dropdown-phone');
+    const dropdownAddress = document.getElementById('dropdown-address');
+
     // Inicializaciones
     initModal(modalOverlay, modalBody, closeModalBtn);
     initCart({
@@ -40,9 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
         cartTotalPrice,
         cartBadge
     });
+    initProfile({ profileBtn, profileDropdown });
 
     async function loadApp() {
         try {
+            // Cargar perfil de usuario (tolerante a fallos)
+            try {
+                const user = await fetchUserProfile(1);
+                renderProfile(user, {
+                    profileName,
+                    dropdownFullname,
+                    dropdownEmail,
+                    dropdownPhone,
+                    dropdownAddress
+                });
+            } catch (userError) {
+                console.error('Error al cargar perfil de usuario:', userError);
+                if (profileName) profileName.textContent = 'Usuario';
+            }
+
             // Cargar productos
             allProducts = await fetchProducts();
             
