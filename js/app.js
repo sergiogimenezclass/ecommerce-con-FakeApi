@@ -4,10 +4,12 @@ import { initModal, openModal } from './modal.js';
 import { initVoiceSearch } from './voiceSearch.js';
 import { initCart, addToCart } from './cart.js';
 import { initProfile, renderProfile } from './profile.js';
+import { initTheme } from './theme.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let allProducts = [];
     
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const micBtn = document.getElementById('mic-btn');
     const searchStatus = document.getElementById('search-status');
     const galleryContainer = document.getElementById('product-gallery');
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownAddress = document.getElementById('dropdown-address');
 
     // Inicializaciones
+    initTheme(themeToggleBtn);
     initModal(modalOverlay, modalBody, closeModalBtn);
     initCart({
         cartToggleBtn,
