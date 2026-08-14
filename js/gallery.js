@@ -43,13 +43,13 @@ export function renderGallery(products, galleryContainer, statusMessage, onCardC
     galleryContainer.style.display = 'grid';
 }
 
-export function renderCategories(categories, categoryFilters, onFilterCategory) {
+export function renderCategories(categories, categoryFilters, onFilterCategory, activeCategory = 'all') {
     categoryFilters.innerHTML = '';
 
     // Botón para restaurar todos los productos
     const allBtn = document.createElement('button');
     allBtn.textContent = 'todos';
-    allBtn.className = 'category-btn active';
+    allBtn.className = `category-btn ${activeCategory === 'all' ? 'active' : ''}`;
     allBtn.addEventListener('click', () => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
         allBtn.classList.add('active');
@@ -63,7 +63,7 @@ export function renderCategories(categories, categoryFilters, onFilterCategory) 
     categories.forEach(category => {
         const btn = document.createElement('button');
         btn.textContent = category;
-        btn.className = 'category-btn';
+        btn.className = `category-btn ${activeCategory === category ? 'active' : ''}`;
         btn.addEventListener('click', () => {
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
