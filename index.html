@@ -45,22 +45,25 @@
 
     <nav id="category-filters" class="category-filters"></nav>
 
-    <!-- Barra de Controles de Ordenamiento y Límite (Query Params) -->
+    <!-- Barra de Controles de Ordenamiento y Paginación en Cliente -->
     <section class="gallery-controls-bar">
         <div class="control-group">
-            <label for="sort-select" class="control-label">⇅ Ordenar:</label>
+            <label for="sort-select" class="control-label">⇅ Ordenar por:</label>
             <select id="sort-select" class="control-select">
-                <option value="asc">Ascendente (Normal)</option>
-                <option value="desc">Descendente (Inverso)</option>
+                <option value="default">Por defecto (API)</option>
+                <option value="price-asc">Precio: Menor a Mayor</option>
+                <option value="price-desc">Precio: Mayor a Menor</option>
+                <option value="name-asc">Nombre: A a Z</option>
+                <option value="name-desc">Nombre: Z a A</option>
             </select>
         </div>
 
         <div class="control-group">
-            <label for="limit-select" class="control-label">🔢 Mostrar:</label>
+            <label for="limit-select" class="control-label">🔢 Por página:</label>
             <select id="limit-select" class="control-select">
                 <option value="all">Todos los productos</option>
-                <option value="6">6 productos</option>
-                <option value="12">12 productos</option>
+                <option value="6">6 por página</option>
+                <option value="12">12 por página</option>
             </select>
         </div>
     </section>
@@ -70,6 +73,8 @@
         <div id="product-gallery" class="gallery-grid" style="display: none;">
             <!-- Las tarjetas de producto se inyectarán aquí dinámicamente -->
         </div>
+        <!-- Botonera de Paginación en Cliente -->
+        <nav id="pagination-container" class="pagination-container"></nav>
     </main>
 
     <!-- Contenedor del Modal -->
