@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { setTheme, getPreferredTheme, initTheme, THEME_KEY } from '../../js/theme.js';
 
 let localStorageStore = {};
+let attributes = {};
 
 global.localStorage = {
     getItem: vi.fn((key) => localStorageStore[key] || null),
@@ -16,28 +17,40 @@ global.localStorage = {
     })
 };
 
+global.document = {
+    documentElement: {
+        setAttribute: vi.fn((key, val) => { attributes[key] = val; }),
+        removeAttribute: vi.fn((key) => { delete attributes[key]; }),
+        getAttribute: vi.fn((key) => attributes[key] || null)
+    }
+};
+
+global.window = {
+    matchMedia: vi.fn(() => ({ matches: false }))
+};
+
 describe('Pruebas unitarias del módulo de Tema (theme.js)', () => {
     beforeEach(() => {
         localStorageStore = {};
-        document.documentElement.removeAttribute('data-theme');
+        attributes = {};
         vi.restoreAllMocks();
     });
 
     it('setTheme en modo "light" debe establecer data-theme="light" e ícono ☀️', () => {
-        const btn = document.createElement('button');
+        const btn = { textContent: '', setAttribute: vi.fn() };
         setTheme('light', btn);
 
-        expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+        expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', 'light');
         expect(btn.textContent).toBe('☀️');
         expect(global.localStorage.setItem).toHaveBeenCalledWith(THEME_KEY, 'light');
     });
 
     it('setTheme en modo "dark" debe remover data-theme e ícono 🌙', () => {
-        document.documentElement.setAttribute('data-theme', 'light');
-        const btn = document.createElement('button');
+        attributes['data-theme'] = 'light';
+        const btn = { textContent: '', setAttribute: vi.fn() };
         setTheme('dark', btn);
 
-        expect(document.documentElement.getAttribute('data-theme')).toBeNull();
+        expect(global.document.documentElement.removeAttribute).toHaveBeenCalledWith('data-theme');
         expect(btn.textContent).toBe('🌙');
         expect(global.localStorage.setItem).toHaveBeenCalledWith(THEME_KEY, 'dark');
     });
@@ -48,20 +61,28 @@ describe('Pruebas unitarias del módulo de Tema (theme.js)', () => {
     });
 
     it('initTheme debe alternar el tema al hacer clic en el botón', () => {
-        const btn = document.createElement('button');
+        let clickListener = null;
+        const btn = {
+            textContent: '',
+            setAttribute: vi.fn(),
+            addEventListener: vi.fn((event, handler) => {
+                if (event === 'click') clickListener = handler;
+            })
+        };
+
         initTheme(btn);
 
         // Tema inicial 'dark' por defecto
         expect(btn.textContent).toBe('🌙');
 
-        // Primer clic -> cambia a 'light'
-        btn.click();
-        expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+        // Simular primer clic -> cambia a 'light'
+        clickListener();
+        expect(attributes['data-theme']).toBe('light');
         expect(btn.textContent).toBe('☀️');
 
-        // Segundo clic -> vuelve a 'dark'
-        btn.click();
-        expect(document.documentElement.getAttribute('data-theme')).toBeNull();
+        // Simular segundo clic -> vuelve a 'dark'
+        clickListener();
+        expect(attributes['data-theme']).toBeUndefined();
         expect(btn.textContent).toBe('🌙');
     });
 });
