@@ -261,6 +261,57 @@ body {
     box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
 }
 
+/* Barra de Controles de Ordenamiento y Límite */
+.gallery-controls-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.control-select {
+    font-family: var(--font-family);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-color);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-select:hover, .control-select:focus {
+    border-color: var(--border-hover);
+    box-shadow: 0 4px 12px var(--gradient-glow);
+}
+
+.control-select option {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
 /* Botones de búsqueda por voz, tema y carrito en el Header */
 .mic-button,
 .cart-toggle-btn,
