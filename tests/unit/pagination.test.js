@@ -1,6 +1,19 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { sortProducts, paginateProducts } from '../../js/controls.js';
 import { renderPagination } from '../../js/pagination.js';
+
+global.document = {
+    createElement: vi.fn((tag) => {
+        return {
+            tagName: tag.toUpperCase(),
+            className: '',
+            innerHTML: '',
+            textContent: '',
+            disabled: false,
+            addEventListener: vi.fn()
+        };
+    })
+};
 
 describe('Pruebas unitarias de Ordenamiento y Paginación en Cliente', () => {
     const products = [
@@ -9,6 +22,10 @@ describe('Pruebas unitarias de Ordenamiento y Paginación en Cliente', () => {
         { id: 3, title: 'Camisa', price: 20 },
         { id: 4, title: 'Bufanda', price: 10 }
     ];
+
+    beforeEach(() => {
+        vi.restoreAllMocks();
+    });
 
     it('sortProducts debe ordenar por precio ascendente (price-asc)', () => {
         const sorted = sortProducts(products, 'price-asc');
