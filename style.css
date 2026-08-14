@@ -262,7 +262,9 @@ body {
 }
 
 /* Botones de búsqueda por voz, tema y carrito en el Header */
-.mic-button, .cart-toggle-btn, .theme-toggle-btn {
+.mic-button,
+.cart-toggle-btn,
+.theme-toggle-btn {
     font-size: 1.25rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
@@ -278,7 +280,9 @@ body {
     position: relative;
 }
 
-.mic-button:hover, .cart-toggle-btn:hover, .theme-toggle-btn:hover {
+.mic-button:hover,
+.cart-toggle-btn:hover,
+.theme-toggle-btn:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--border-hover);
     transform: translateY(-2px);
@@ -570,7 +574,7 @@ body {
 .cart-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--border-color);
-    background-color: rgba(9, 9, 11, 0.5);
+    background-color: var(--bg-color);
 }
 
 .cart-total-section {
@@ -583,7 +587,8 @@ body {
 }
 
 /* Acentos y Botones con Degradado Neón */
-.checkout-btn, .modal-add-to-cart-btn {
+.checkout-btn,
+.modal-add-to-cart-btn {
     width: 100%;
     padding: 0.85rem;
     background: var(--gradient-accent);
@@ -598,7 +603,8 @@ body {
     box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
 }
 
-.checkout-btn:hover, .modal-add-to-cart-btn:hover {
+.checkout-btn:hover,
+.modal-add-to-cart-btn:hover {
     opacity: 0.92;
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
@@ -650,9 +656,20 @@ body {
 
 /* Animaciones */
 @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 /* Contenedor del Perfil de Usuario */
@@ -763,6 +780,7 @@ body {
         opacity: 0;
         transform: translateY(-8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
