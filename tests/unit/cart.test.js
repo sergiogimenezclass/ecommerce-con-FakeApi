@@ -80,6 +80,17 @@ describe('Pruebas unitarias de la Lógica del Carrito (cart.js)', () => {
         expect(cart[0].id).toBe(2);
     });
 
+    it('removeFromCart y updateQuantity deben funcionar correctamente aunque el ID sea un string ("1")', () => {
+        const p1 = { id: 1, title: 'Mochila', price: 29.99, image: 'img.jpg' };
+        addToCart(p1);
+
+        updateQuantity("1", 2);
+        expect(cart[0].quantity).toBe(3);
+
+        removeFromCart("1");
+        expect(cart).toEqual([]);
+    });
+
     it('clearCart debería vaciar completamente el carrito', () => {
         const p = { id: 1, title: 'Mochila', price: 29.99, image: 'img.jpg' };
         addToCart(p);
