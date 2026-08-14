@@ -45,6 +45,26 @@
 
     <nav id="category-filters" class="category-filters"></nav>
 
+    <!-- Barra de Controles de Ordenamiento y Límite (Query Params) -->
+    <section class="gallery-controls-bar">
+        <div class="control-group">
+            <label for="sort-select" class="control-label">⇅ Ordenar:</label>
+            <select id="sort-select" class="control-select">
+                <option value="asc">Ascendente (Normal)</option>
+                <option value="desc">Descendente (Inverso)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="limit-select" class="control-label">🔢 Mostrar:</label>
+            <select id="limit-select" class="control-select">
+                <option value="all">Todos los productos</option>
+                <option value="6">6 productos</option>
+                <option value="12">12 productos</option>
+            </select>
+        </div>
+    </section>
+
     <main class="main-content">
         <div id="status-message" class="status-message">Cargando productos...</div>
         <div id="product-gallery" class="gallery-grid" style="display: none;">
