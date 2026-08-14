@@ -7,9 +7,26 @@
     --border-hover: rgba(139, 92, 246, 0.4);
     --glass-bg: rgba(18, 18, 22, 0.85);
     --glass-bg-hover: rgba(28, 28, 35, 0.90);
+    --header-bg: rgba(9, 9, 11, 0.8);
+    --modal-bg: rgba(15, 15, 20, 0.92);
+    --sidebar-bg: rgba(9, 9, 11, 0.85);
     --gradient-accent: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
     --gradient-glow: rgba(168, 85, 247, 0.15);
     --font-family: 'Space Grotesk', sans-serif;
+}
+
+[data-theme="light"] {
+    --bg-color: #f4f4f5;
+    --text-color: #18181b;
+    --text-secondary: #52525b;
+    --border-color: rgba(0, 0, 0, 0.12);
+    --border-hover: rgba(168, 85, 247, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-bg-hover: rgba(255, 255, 255, 0.95);
+    --header-bg: rgba(244, 244, 245, 0.85);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --sidebar-bg: rgba(255, 255, 255, 0.95);
+    --gradient-glow: rgba(168, 85, 247, 0.25);
 }
 
 /* Reseteo básico para asegurar consistencia estructural */
@@ -33,7 +50,7 @@ body {
 .header {
     width: 100%;
     padding: 1.25rem 2rem;
-    background: rgba(9, 9, 11, 0.8);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
@@ -244,8 +261,8 @@ body {
     box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
 }
 
-/* Botones de búsqueda por voz y carrito en el Header */
-.mic-button, .cart-toggle-btn {
+/* Botones de búsqueda por voz, tema y carrito en el Header */
+.mic-button, .cart-toggle-btn, .theme-toggle-btn {
     font-size: 1.25rem;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
@@ -261,7 +278,7 @@ body {
     position: relative;
 }
 
-.mic-button:hover, .cart-toggle-btn:hover {
+.mic-button:hover, .cart-toggle-btn:hover, .theme-toggle-btn:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--border-hover);
     transform: translateY(-2px);
@@ -319,7 +336,7 @@ body {
 }
 
 .modal-content {
-    background: rgba(15, 15, 20, 0.85);
+    background: var(--modal-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
@@ -398,7 +415,7 @@ body {
     width: 400px;
     max-width: 100vw;
     height: 100vh;
-    background: rgba(9, 9, 11, 0.85);
+    background: var(--sidebar-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-left: 1px solid var(--border-color);
@@ -685,7 +702,7 @@ body {
     top: calc(100% + 0.75rem);
     right: 0;
     width: 280px;
-    background: rgba(15, 15, 20, 0.95);
+    background: var(--modal-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
