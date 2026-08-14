@@ -43,7 +43,7 @@ export function renderGallery(products, galleryContainer, statusMessage, onCardC
     galleryContainer.style.display = 'grid';
 }
 
-export function renderCategories(categories, allProducts, categoryFilters, onFilterChange) {
+export function renderCategories(categories, categoryFilters, onFilterCategory) {
     categoryFilters.innerHTML = '';
 
     // Botón para restaurar todos los productos
@@ -53,7 +53,9 @@ export function renderCategories(categories, allProducts, categoryFilters, onFil
     allBtn.addEventListener('click', () => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
         allBtn.classList.add('active');
-        onFilterChange(allProducts);
+        if (typeof onFilterCategory === 'function') {
+            onFilterCategory('all');
+        }
     });
     categoryFilters.appendChild(allBtn);
 
@@ -65,9 +67,9 @@ export function renderCategories(categories, allProducts, categoryFilters, onFil
         btn.addEventListener('click', () => {
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            const filtered = allProducts.filter(product => product.category === category);
-            onFilterChange(filtered);
+            if (typeof onFilterCategory === 'function') {
+                onFilterCategory(category);
+            }
         });
         categoryFilters.appendChild(btn);
     });
