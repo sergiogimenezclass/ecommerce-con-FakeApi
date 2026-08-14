@@ -7,11 +7,13 @@ import { initProfile, renderProfile } from './profile.js';
 import { initTheme } from './theme.js';
 import { initControls, getControlParams, sortProducts, paginateProducts } from './controls.js';
 import { renderPagination } from './pagination.js';
+import { getURLParams, updateURLParams, syncUIWithURLParams } from './urlParams.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let rawFetchedProducts = [];
     let activeCategory = 'all';
     let currentPage = 1;
+    let categoriesList = [];
     
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const micBtn = document.getElementById('mic-btn');
@@ -66,9 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const controlsElements = { sortSelect, limitSelect };
 
-    // Procesa el ordenamiento y paginación sobre la lista de productos activa
+    // Leer parámetros de URL al iniciar
+    const initialUrlParams = getURLParams();
+    activeCategory = initialUrlParams.category;
+    currentPage = initialUrlParams.page;
+    syncUIWithURLParams(initialUrlParams, controlsElements);
+
+    // Procesa el ordenamiento, paginación y actualiza la URL
     function renderProcessedProducts() {
         const { sort, limit } = getControlParams(controlsElements);
+
+        // Actualizar URL del navegador
+        updateURLParams({
+            category: activeCategory,
+            sort,
+            limit,
+            page: currentPage
+        });
 
         // 1. Ordenar productos
         const sorted = sortProducts(rawFetchedProducts, sort);
@@ -99,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Solicita datos a la API según categoría
-    async function loadProducts(resetPage = true) {
+    async function loadProducts(resetPage = false) {
         try {
             if (resetPage) {
                 currentPage = 1;
@@ -131,6 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
         renderProcessedProducts();
     });
 
+    // Escuchar navegación Atrás / Adelante del navegador
+    window.addEventListener('popstate', async () => {
+        const currentParams = getURLParams();
+        const categoryChanged = activeCategory !== currentParams.category;
+        
+        activeCategory = currentParams.category;
+        currentPage = currentParams.page;
+        syncUIWithURLParams(currentParams, controlsElements);
+
+        if (categoriesList.length > 0) {
+            renderCategories(categoriesList, categoryFilters, onCategorySelect, activeCategory);
+        }
+
+        if (categoryChanged) {
+            await loadProducts(false);
+        } else {
+            renderProcessedProducts();
+        }
+    });
+
+    async function onCategorySelect(categoryName) {
+        activeCategory = categoryName;
+        await loadProducts(true);
+    }
+
     async function loadApp() {
         try {
             // Cargar perfil de usuario (tolerante a fallos)
@@ -148,18 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (profileName) profileName.textContent = 'Usuario';
             }
 
-            // Cargar productos iniciales
-            await loadProducts(true);
+            // Cargar productos iniciales respetando la página de la URL
+            await loadProducts(false);
 
             // Cargar y renderizar categorías
-            const categories = await fetchCategories();
+            categoriesList = await fetchCategories();
             renderCategories(
-                categories, 
+                categoriesList, 
                 categoryFilters, 
-                async (categoryName) => {
-                    activeCategory = categoryName;
-                    await loadProducts(true);
-                }
+                onCategorySelect,
+                activeCategory
             );
 
             // Inicializar búsqueda por voz
