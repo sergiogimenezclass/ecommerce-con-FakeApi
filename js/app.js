@@ -1,13 +1,14 @@
-import { fetchProducts, fetchCategories, fetchUserProfile, fetchProductsByCategory } from './api.js';
+import { fetchProducts, fetchCategories, fetchUserProfile, fetchProductsByCategory, createCartOrder } from './api.js';
 import { renderGallery, renderCategories } from './gallery.js';
 import { initModal, openModal } from './modal.js';
 import { initVoiceSearch } from './voiceSearch.js';
-import { initCart, addToCart } from './cart.js';
+import { initCart, addToCart, clearCart, closeCart } from './cart.js';
 import { initProfile, renderProfile } from './profile.js';
 import { initTheme } from './theme.js';
 import { initControls, getControlParams, sortProducts, paginateProducts } from './controls.js';
 import { renderPagination } from './pagination.js';
 import { getURLParams, updateURLParams, syncUIWithURLParams } from './urlParams.js';
+import { renderCheckoutTicket } from './checkoutModal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let rawFetchedProducts = [];
@@ -62,7 +63,26 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutBtn,
         cartItemsContainer,
         cartTotalPrice,
-        cartBadge
+        cartBadge,
+        onCheckout: async (cartItems, totalAmount, checkoutBtnElem) => {
+            const originalBtnText = checkoutBtnElem.textContent;
+            try {
+                checkoutBtnElem.disabled = true;
+                checkoutBtnElem.textContent = '⏳ Procesando pedido...';
+
+                const orderData = await createCartOrder(cartItems, 1);
+                
+                closeCart();
+                clearCart();
+                renderCheckoutTicket(orderData, cartItems, totalAmount, modalOverlay, modalBody);
+            } catch (error) {
+                console.error('Error durante el checkout:', error);
+                alert('No se pudo procesar la orden con el servidor. Por favor, intenta de nuevo.');
+            } finally {
+                checkoutBtnElem.disabled = false;
+                checkoutBtnElem.textContent = originalBtnText;
+            }
+        }
     });
     initProfile({ profileBtn, profileDropdown });
 
