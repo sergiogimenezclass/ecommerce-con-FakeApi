@@ -889,3 +889,156 @@ body {
     cursor: not-allowed;
     border-color: rgba(255, 255, 255, 0.05);
 }
+
+/* Ticket de Confirmación de Pedido (Checkout) */
+.checkout-ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 0.5rem;
+    color: var(--text-color);
+}
+
+.ticket-header {
+    text-align: center;
+}
+
+.ticket-icon {
+    font-size: 2.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.ticket-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.2rem;
+}
+
+.ticket-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.ticket-table-wrapper {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--glass-bg);
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.ticket-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ticket-table td {
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+.ticket-prod-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.ticket-prod-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.ticket-prod-title {
+    font-weight: 500;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticket-num-cell {
+    text-align: right;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.ticket-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.ticket-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.ticket-total-price {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    font-weight: 800;
+}
+
+.continue-btn {
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--gradient-accent);
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+    width: 100%;
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+}
