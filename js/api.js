@@ -78,3 +78,41 @@ export async function fetchUserProfile(userId) {
         throw error;
     }
 }
+
+export async function createCartOrder(cartItems, userId = 1) {
+    try {
+        if (!Array.isArray(cartItems) || cartItems.length === 0) {
+            throw new Error('El carrito no puede estar vacío');
+        }
+
+        const formattedProducts = cartItems.map(item => ({
+            productId: Number(item.id),
+            quantity: Number(item.quantity) || 1
+        }));
+
+        const currentDate = new Date().toISOString().split('T')[0];
+
+        const payload = {
+            userId: Number(userId),
+            date: currentDate,
+            products: formattedProducts
+        };
+
+        const response = await fetch(`${BASE_URL}/carts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP al crear la orden de compra: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Fallo en la creación de la orden de compra:', error);
+        throw error;
+    }
+}
