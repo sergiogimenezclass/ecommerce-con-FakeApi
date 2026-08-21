@@ -176,16 +176,21 @@ export function initCart(elements) {
 
     // Enlazar checkout
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
+        checkoutBtn.addEventListener('click', async () => {
             if (cart.length === 0) {
                 alert('Tu carrito está vacío. Agrega productos para realizar una compra.');
                 return;
             }
             
-            // Simular checkout exitoso
-            alert('🎉 ¡Muchas gracias por tu compra! Tu pedido simulado ha sido procesado con éxito.');
-            clearCart();
-            closeCart();
+            if (typeof elements.onCheckout === 'function') {
+                const currentCart = [...cart];
+                const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                await elements.onCheckout(currentCart, totalPrice, checkoutBtn);
+            } else {
+                alert('🎉 ¡Muchas gracias por tu compra! Tu pedido ha sido procesado con éxito.');
+                clearCart();
+                closeCart();
+            }
         });
     }
 
